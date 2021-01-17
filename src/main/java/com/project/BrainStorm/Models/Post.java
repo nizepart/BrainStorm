@@ -20,12 +20,24 @@ public class Post {
     @JoinColumn(name = "user_id")
     private User author;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "IsOfTag")
+    private Tag tag;
+
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "post"
     )
     private Set<Comment> comments;
 
     public Set<Comment> getComment() {
         return comments;
+    }
+
+    public Tag getTag() {
+        return tag;
+    }
+
+    public void setTag(Tag tag) {
+        this.tag = tag;
     }
 
     public String getCreationDate() {
@@ -40,6 +52,7 @@ public class Post {
         this.comments = comment;
     }
 
+
     private String filename;
 
     public User getAuthor() {
@@ -53,14 +66,20 @@ public class Post {
     public Post() {
     }
 
-    public Post(String title, String full_text, User user) {
-        this.author = user;
+    public Post(String title, String full_text, LocalDateTime creationDate, User author, Tag tag) {
         this.title = title;
         this.full_text = full_text;
+        this.creationDate = creationDate;
+        this.author = author;
+        this.tag = tag;
     }
 
     public String getAuthorName() {
         return author != null ? author.getUsername() : " ";
+    }
+
+    public String getTagName() {
+        return tag != null ? tag.getName() : " ";
     }
 
     public Integer getId() {

@@ -1,8 +1,10 @@
 package com.project.BrainStorm.Controllers;
 
 import com.project.BrainStorm.Models.Post;
+import com.project.BrainStorm.Models.Tag;
 import com.project.BrainStorm.Models.User;
 import com.project.BrainStorm.Repos.PostRepo;
+import com.project.BrainStorm.Repos.TagRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -15,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.UUID;
 
@@ -22,6 +25,9 @@ import java.util.UUID;
 public class MainController {
     @Autowired
     private PostRepo postRepo;
+
+    @Autowired
+    private TagRepo tagRepo;
 
     @Value("${upload.path}")
     private String uploadPath;
@@ -53,8 +59,10 @@ public class MainController {
             @RequestParam String title,
             @RequestParam String full_text,
             @RequestParam("file") MultipartFile file,
+            @RequestParam String tagName,
             Map<String, Object> model) throws IOException {
-        Post post = new Post(title, full_text, user);
+        Tag tag = new Tag(tagName);
+        Post post = new Post(title, full_text, LocalDateTime.now(), user, tagRepo.findByName(tagName));
         if (file != null && !file.getOriginalFilename().isEmpty()){
 
             File uploadDir = new File(uploadPath);
@@ -70,6 +78,7 @@ public class MainController {
 
             post.setFilename(resultFilename);
         }
+        tagRepo.save(tag);
         postRepo.save(post);
         return "redirect:/main";
     }

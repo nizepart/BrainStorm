@@ -10,6 +10,7 @@
         <input type="text" name="title" placeholder="Название статьи">
         <input type="text" name="full_text" placeholder="Введите текст">
         <input type="file" name="file">
+        <input type="text" name="tagName" placeholder="Выберите категорию">
         <button type="submit">Добавить</button>
         <input type="hidden" name="_csrf" value="${_csrf.token}">
     </form>
@@ -21,10 +22,11 @@
 <div>Лента</div>
 <#list blog as post>
      <div>
-         <b>${post.id}</b>
          <i>${post.title}</i>
          <span>${post.full_text}</span>
+         <b>${post.tagName}</b>
          <strong>${post.authorName}</strong>
+         <i>${post.creationDate}</i>
          <div>
              <#if post.filename??>
                  <img src="/img/${post.filename}">
