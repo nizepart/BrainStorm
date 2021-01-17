@@ -20,8 +20,21 @@ import java.util.Set;
         @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
         @CollectionTable(name = "IsOfRole", joinColumns = @JoinColumn(name= "user_id"))
         @Enumerated(EnumType.STRING)
-
         private Set<Role> roles;
+
+        @OneToMany(mappedBy = "author", cascade =  CascadeType.ALL, fetch = FetchType.LAZY)
+        private Set<Post> blog;
+
+        public Set<Post> getBlog() {
+            return blog;
+        }
+        public boolean isAdmin(){
+            return roles.contains(Role.ADMIN);
+        }
+
+        public void setBlog(Set<Post> blog) {
+            this.blog = blog;
+        }
 
         public Long getId() {
             return id;
