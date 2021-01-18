@@ -15,10 +15,6 @@
         </div>
     </div>
 
-    <#if isAdmin>
-    <a href="/main/tag" type="button" class="btn btn-outline-dark">Редактировать теги</a>
-    </#if>
-
     <#include "parts/postEdit.ftlh"/>
 
     <#include "parts/postList.ftlh"/>

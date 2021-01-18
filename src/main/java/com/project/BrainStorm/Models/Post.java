@@ -14,9 +14,12 @@ public class Post {
 
     private String title;
 
+    private String link;
+
     private String full_text;
 
     private LocalDateTime creationDate;
+
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
@@ -75,12 +78,13 @@ public class Post {
     public Post() {
     }
 
-    public Post(String title, String full_text, LocalDateTime creationDate, User author, Tag tag) {
+    public Post(String title, String full_text, LocalDateTime creationDate, User author, Tag tag, String link) {
         this.title = title;
         this.full_text = full_text;
         this.creationDate = creationDate;
         this.author = author;
         this.tag = tag;
+        this.link = link;
     }
 
     public String getAuthorName() {
@@ -110,6 +114,14 @@ public class Post {
 
     public String getFull_text() {
         return full_text;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 
     public void setFull_text(String full_text) {

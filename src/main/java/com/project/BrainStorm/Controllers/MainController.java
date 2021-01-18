@@ -1,9 +1,6 @@
 package com.project.BrainStorm.Controllers;
 
-import com.project.BrainStorm.Models.Comment;
-import com.project.BrainStorm.Models.Post;
-import com.project.BrainStorm.Models.Tag;
-import com.project.BrainStorm.Models.User;
+import com.project.BrainStorm.Models.*;
 import com.project.BrainStorm.Repos.PostRepo;
 import com.project.BrainStorm.Repos.TagRepo;
 import com.project.BrainStorm.Service.UserService;
@@ -22,7 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
@@ -67,10 +63,11 @@ public class MainController {
     public String addPostInProfile(
             @AuthenticationPrincipal User user,
             @RequestParam String title,
+            @RequestParam String link,
             @RequestParam String full_text,
             @RequestParam("file") MultipartFile file,
             @RequestParam Tag tag) throws IOException {
-        Post post = new Post(title, full_text, LocalDateTime.now(), user, tag);
+        Post post = new Post(title, full_text, LocalDateTime.now(), user, tag, link);
         fileSave(file, post);
         postRepo.save(post);
         return "redirect:/main/profile/" + user.getId();
@@ -104,10 +101,11 @@ public class MainController {
     public String add(
             @AuthenticationPrincipal User user,
             @RequestParam String title,
+            @RequestParam String link,
             @RequestParam String full_text,
             @RequestParam("file") MultipartFile file,
             @RequestParam Tag tag) throws IOException {
-        Post post = new Post(title, full_text, LocalDateTime.now(), user, tag);
+        Post post = new Post(title, full_text, LocalDateTime.now(), user, tag, link);
         fileSave(file, post);
         postRepo.save(post);
         return "redirect:/main";
@@ -130,6 +128,7 @@ public class MainController {
             post.setFilename(resultFilename);
         }
     }
+
 
     @GetMapping("/main/profile/{user}/edit")
     public String getProfile(Model model,

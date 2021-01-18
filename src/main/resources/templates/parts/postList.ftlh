@@ -5,7 +5,7 @@
         <div class="card-body">
             <h5 class="card-title">${post.title}</h5>
             <p class="card-text">${post.full_text}</p>
-            <p class="card-text"><small class="text-muted">${post.tagName}</small></p>
+            <p class="card-text"><a href="${post.link}">${post.tagName}</a></p>
             <div class="text-muted mb-2">${post.creationDate}</div>
             <div class="card-footer text-muted form-control">
                 <a href="/main/profile/${post.author.id}"> ${post.authorName} </a>

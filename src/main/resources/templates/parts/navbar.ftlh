@@ -25,6 +25,9 @@
                         <a class="nav-link" aria-current="page" href="/main/profile/${currentUserId}">Profile</a>
                     </li>
                 </#if>
+                <#if isAdmin>
+                    <a class="nav-link" aria-current="page" href="/main/tag">Редактировать теги</a>
+                </#if>
             </ul>
             <div class="navbar-text me-3"><#if user??>${name}<#else>Please, login</#if></div>
             <#if user??><@l.logout/></#if>
