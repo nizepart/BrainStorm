@@ -7,7 +7,7 @@
             <input type="text"  class="form-control mt-3" name="title" placeholder="Название статьи">
             <input type="text"  class="form-control mt-3" name="full_text" placeholder="Введите текст" required>
             <input class="form-control form-control-lg mt-3" id="formFileLg" type="file" name="file">
-            <select class="form-select mt-3" name="tagName">
+            <select class="form-select mt-3" name="tag">
                 <option selected>Без категории</option>
                 <#list tags! as tag>
                 <option value="${tag.id}">${tag.name}</option>

@@ -69,8 +69,8 @@ public class MainController {
             @RequestParam String title,
             @RequestParam String full_text,
             @RequestParam("file") MultipartFile file,
-            @RequestParam String tagName) throws IOException {
-        Post post = new Post(title, full_text, LocalDateTime.now(), user, tagRepo.findByName(tagName));
+            @RequestParam Tag tag) throws IOException {
+        Post post = new Post(title, full_text, LocalDateTime.now(), user, tag);
         fileSave(file, post);
         postRepo.save(post);
         return "redirect:/main/profile/" + user.getId();
@@ -106,8 +106,8 @@ public class MainController {
             @RequestParam String title,
             @RequestParam String full_text,
             @RequestParam("file") MultipartFile file,
-            @RequestParam String tagName) throws IOException {
-        Post post = new Post(title, full_text, LocalDateTime.now(), user, tagRepo.findByName(tagName));
+            @RequestParam Tag tag) throws IOException {
+        Post post = new Post(title, full_text, LocalDateTime.now(), user, tag);
         fileSave(file, post);
         postRepo.save(post);
         return "redirect:/main";
