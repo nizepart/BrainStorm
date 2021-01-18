@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.Objects;
 import java.util.Set;
 
     @Entity
@@ -15,6 +16,19 @@ import java.util.Set;
         @Id
         @GeneratedValue(strategy= GenerationType.AUTO)
         private Long id;
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            User user = (User) o;
+            return id.equals(user.id);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(id);
+        }
 
         private String username;
 

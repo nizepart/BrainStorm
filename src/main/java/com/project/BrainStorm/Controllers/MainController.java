@@ -21,6 +21,7 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 @Controller
@@ -102,6 +103,10 @@ public class MainController {
                               @AuthenticationPrincipal User currentUser,
                               @PathVariable User user){
         model.addAttribute("username", user.getUsername());
+        Set<Post> blog = user.getBlog();
+
+        model.addAttribute("blog", blog);
+        model.addAttribute("isCurrentUser", currentUser.equals(user));
 
         return "profile";
     }
@@ -112,9 +117,11 @@ public class MainController {
             @AuthenticationPrincipal User currentUser,
             @PathVariable User user,
             @RequestParam String password){
-        userService.updateProfile(user, password);
+        userService.updateProfile(user);
 
         return "redirect:/main/profile/{user}";
     }
+
+
 
 }

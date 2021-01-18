@@ -20,11 +20,11 @@ public class CommentController {
 
     @GetMapping("{post}")
     public String commentList(Model model,
-                                  @PathVariable Post post)
+                              @PathVariable Post post)
     {
         Iterable<Comment> comments = commentRepo.findByPost(post);
         model.addAttribute("comments", comments);
-        return "commentList";
+        return "commentList.ftlh";
     }
 
 
