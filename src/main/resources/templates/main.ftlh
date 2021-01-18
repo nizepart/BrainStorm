@@ -1,4 +1,5 @@
 <#import "parts/common.ftlh" as c>
+<#include "parts/security.ftlh">
 
 <@c.page>
     <div class="form-row mb-3">
@@ -15,7 +16,7 @@
     </div>
 
     <#if isAdmin>
-    <a href="/edit" type="button" class="btn btn-outline-light">Редактировать теги</a>
+    <a href="/main/tag" type="button" class="btn btn-outline-dark">Редактировать теги</a>
     </#if>
 
     <#include "parts/postEdit.ftlh"/>

@@ -1,5 +1,6 @@
 package com.project.BrainStorm.Controllers;
 
+import com.project.BrainStorm.Models.Comment;
 import com.project.BrainStorm.Models.Post;
 import com.project.BrainStorm.Models.Tag;
 import com.project.BrainStorm.Models.User;
@@ -21,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
@@ -68,8 +70,6 @@ public class MainController {
             @RequestParam String full_text,
             @RequestParam("file") MultipartFile file,
             @RequestParam String tagName) throws IOException {
-        Tag tag = new Tag(tagName);
-        tagRepo.save(tag);
         Post post = new Post(title, full_text, LocalDateTime.now(), user, tagRepo.findByName(tagName));
         fileSave(file, post);
         postRepo.save(post);
@@ -78,8 +78,10 @@ public class MainController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/main/tag")
-    public String updateTagList(
+    public String updateTagList(Model model
     ){
+        Iterable<Tag> tags = tagRepo.findAll();
+        model.addAttribute("tags", tags);
         return "tag";
     }
 
@@ -88,6 +90,11 @@ public class MainController {
     @PostMapping("/main/tag")
     public String addTag(
             @RequestParam String newTagName){
+        Tag tagFromDb = tagRepo.findByName(newTagName);
+
+        if (tagFromDb != null) {
+            return "redirect:/main/tag";
+        }
         Tag tag = new Tag(newTagName);
         tagRepo.save(tag);
         return "redirect:/main";
@@ -100,8 +107,6 @@ public class MainController {
             @RequestParam String full_text,
             @RequestParam("file") MultipartFile file,
             @RequestParam String tagName) throws IOException {
-        Tag tag = new Tag(tagName);
-        tagRepo.save(tag);
         Post post = new Post(title, full_text, LocalDateTime.now(), user, tagRepo.findByName(tagName));
         fileSave(file, post);
         postRepo.save(post);
