@@ -10,7 +10,7 @@
             <div class="card-footer text-muted form-control">
                 <a href="/main/profile/${post.author.id}"> ${post.authorName} </a>
                 <#if post.author.id == currentUserId>
-                <a class="btn btn-primary ms-3" role="button"  href="/main/profile/${post.author.id}?post=${post.id}">Edit</a>
+                    <a class="btn btn-primary ms-3" role="button"  href="/main/profile/${post.author.id}?post=${post.id}">Edit</a>
                 </#if>
             </div>
             <div>

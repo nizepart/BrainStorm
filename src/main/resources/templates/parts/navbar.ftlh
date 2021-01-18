@@ -26,8 +26,8 @@
                     </li>
                 </#if>
             </ul>
-            <div class="navbar-text me-3">${name}</div>
-            <#if name !="unknown"><@l.logout/></#if>
+            <div class="navbar-text me-3"><#if user??>${name}<#else>Please, login</#if></div>
+            <#if name !=" "><@l.logout/></#if>
         </div>
     </div>
 </nav>

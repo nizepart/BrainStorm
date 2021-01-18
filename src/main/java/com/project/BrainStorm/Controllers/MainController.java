@@ -72,7 +72,7 @@ public class MainController {
         fileSave(file, post);
         tagRepo.save(tag);
         postRepo.save(post);
-        return "redirect:/main/profile/{user}";
+        return "redirect:/main/profile/" + user.getId();
     }
 
     @PostMapping("/main")
@@ -126,7 +126,11 @@ public class MainController {
         Set<Post> blog = user.getBlog();
 
         model.addAttribute("blog", blog);
+        model.addAttribute("userChannel", user);
+        model.addAttribute("subscriptionsCount", user.getSubscriptions().size());
+        model.addAttribute("subscribersCount", user.getSubscribers().size());
         model.addAttribute("isCurrentUser", currentUser.equals(user));
+        model.addAttribute("IsSubscriber", user.getSubscribers().contains(currentUser));
 
         return "profile";
     }
@@ -139,7 +143,7 @@ public class MainController {
             @RequestParam String password){
         userService.updateProfile(user, password);
 
-        return "redirect:/main/profile/{user}";
+        return "redirect:/main/profile/" + user.getId();
     }
 
 

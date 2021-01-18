@@ -24,7 +24,7 @@ public class CommentController {
     {
         Iterable<Comment> comments = commentRepo.findByPost(post);
         model.addAttribute("comments", comments);
-        return "commentList.ftlh";
+        return "commentList";
     }
 
 

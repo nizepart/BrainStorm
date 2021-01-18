@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -24,6 +25,22 @@ import java.util.Set;
             User user = (User) o;
             return id.equals(user.id);
         }
+
+        @ManyToMany
+        @JoinTable(
+                name = "IsSubbing",
+                joinColumns = {@JoinColumn(name = "channel")},
+                inverseJoinColumns = {@JoinColumn(name = "subscriber")}
+        )
+        private Set<User> subscribers = new HashSet<>();
+
+        @ManyToMany
+        @JoinTable(
+                name = "IsSubbing",
+                joinColumns = {@JoinColumn(name = "subscriber")},
+                inverseJoinColumns = {@JoinColumn(name = "channel")}
+        )
+        private Set<User> subscriptions = new HashSet<>();
 
         @Override
         public int hashCode() {
@@ -122,6 +139,22 @@ import java.util.Set;
 
         public String getLast_name() {
             return last_name;
+        }
+
+        public Set<User> getSubscribers() {
+            return subscribers;
+        }
+
+        public void setSubscribers(Set<User> subscribers) {
+            this.subscribers = subscribers;
+        }
+
+        public Set<User> getSubscriptions() {
+            return subscriptions;
+        }
+
+        public void setSubscriptions(Set<User> subscriptions) {
+            this.subscriptions = subscriptions;
         }
 
         public void setLast_name(String last_name) {
