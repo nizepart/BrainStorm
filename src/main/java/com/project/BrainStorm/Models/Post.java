@@ -54,6 +54,13 @@ public class Post {
         this.comments = comment;
     }
 
+    public Set<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
+    }
 
     private String filename;
 

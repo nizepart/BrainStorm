@@ -20,7 +20,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
@@ -65,12 +64,11 @@ public class MainController {
             @RequestParam String title,
             @RequestParam String full_text,
             @RequestParam("file") MultipartFile file,
-            @RequestParam String tagName,
-            Map<String, Object> model) throws IOException {
+            @RequestParam String tagName) throws IOException {
         Tag tag = new Tag(tagName);
+        tagRepo.save(tag);
         Post post = new Post(title, full_text, LocalDateTime.now(), user, tagRepo.findByName(tagName));
         fileSave(file, post);
-        tagRepo.save(tag);
         postRepo.save(post);
         return "redirect:/main/profile/" + user.getId();
     }
@@ -81,12 +79,11 @@ public class MainController {
             @RequestParam String title,
             @RequestParam String full_text,
             @RequestParam("file") MultipartFile file,
-            @RequestParam String tagName,
-            Map<String, Object> model) throws IOException {
+            @RequestParam String tagName) throws IOException {
         Tag tag = new Tag(tagName);
+        tagRepo.save(tag);
         Post post = new Post(title, full_text, LocalDateTime.now(), user, tagRepo.findByName(tagName));
         fileSave(file, post);
-        tagRepo.save(tag);
         postRepo.save(post);
         return "redirect:/main";
     }
