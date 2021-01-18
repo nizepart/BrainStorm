@@ -15,7 +15,12 @@ import java.util.Set;
         @Id
         @GeneratedValue(strategy= GenerationType.AUTO)
         private Long id;
-        private String username, password, first_name, last_name;
+
+        private String username;
+
+        private String password;
+
+        private String first_name, last_name;
 
         @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
         @CollectionTable(name = "IsOfRole", joinColumns = @JoinColumn(name= "user_id"))

@@ -3,13 +3,13 @@
         <div class="form-group row mb-2">
             <label class="col-sm-2 col-form-label"> Username: </label>
             <div class="col-sm-6">
-                <input type="text" name="username" class="form-control" placeholder="Username"/>
+                <input type="text" name="username" class="form-control" required placeholder="Username"/>
             </div>
         </div>
         <div class="form-group row mb-5">
             <label class="col-sm-2 col-form-label"> Password:</label>
             <div class="col-sm-6">
-                <input type="password" name="password" class="form-control" placeholder="Password"/>
+                <input type="password" name="password" class="form-control" required placeholder="Password"/>
             </div>
         </div>
         <input type="hidden" name="_csrf" value="${_csrf.token}">

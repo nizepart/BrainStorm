@@ -12,7 +12,9 @@ public class Post {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
 
-    private String title, full_text;
+    private String title;
+
+    private String full_text;
 
     private LocalDateTime creationDate;
 
