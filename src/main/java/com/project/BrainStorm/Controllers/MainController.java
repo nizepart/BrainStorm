@@ -5,12 +5,14 @@ import com.project.BrainStorm.Models.Tag;
 import com.project.BrainStorm.Models.User;
 import com.project.BrainStorm.Repos.PostRepo;
 import com.project.BrainStorm.Repos.TagRepo;
+import com.project.BrainStorm.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -28,6 +30,9 @@ public class MainController {
 
     @Autowired
     private TagRepo tagRepo;
+
+    @Autowired
+    private UserService userService;
 
     @Value("${upload.path}")
     private String uploadPath;
@@ -83,5 +88,33 @@ public class MainController {
         return "redirect:/main";
     }
 
+    @GetMapping("/main/profile/{user}/edit")
+    public String getProfile(Model model,
+                             @AuthenticationPrincipal User currentUser,
+                             @PathVariable User user){
+        model.addAttribute("username", user.getUsername());
+
+        return "edit";
+    }
+
+    @GetMapping("/main/profile/{user}")
+    public String profilePage(Model model,
+                              @AuthenticationPrincipal User currentUser,
+                              @PathVariable User user){
+        model.addAttribute("username", user.getUsername());
+
+        return "profile";
+    }
+
+
+    @PostMapping("/main/profile/{user}/edit")
+    public String updateProfile(
+            @AuthenticationPrincipal User currentUser,
+            @PathVariable User user,
+            @RequestParam String password){
+        userService.updateProfile(user, password);
+
+        return "redirect:/main/profile/{user}";
+    }
 
 }

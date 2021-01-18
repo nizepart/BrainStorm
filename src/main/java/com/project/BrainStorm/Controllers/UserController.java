@@ -2,19 +2,14 @@ package com.project.BrainStorm.Controllers;
 
 import com.project.BrainStorm.Models.Role;
 import com.project.BrainStorm.Models.User;
-import com.project.BrainStorm.Repos.UserRepo;
 import com.project.BrainStorm.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/user")
@@ -49,19 +44,4 @@ public class UserController {
         return "redirect:/user";
     }
 
-    @GetMapping("profile")
-    public String getProfile(Model model, @AuthenticationPrincipal User user){
-        model.addAttribute("username", user.getUsername());
-
-        return "profile";
-    }
-
-    @PostMapping("profile")
-    public String updateProfile(
-            @AuthenticationPrincipal User user,
-            @RequestParam String password){
-        userService.updateProfile(user, password);
-
-        return "redirect:/user/profile";
-    }
 }

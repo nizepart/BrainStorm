@@ -1,15 +1,8 @@
 <#import "parts/common.ftlh" as c>
-
+<#include "parts/security.ftlh">
 <@c.page>
     <h5>${username}</h5>
-    <form method="post">
-        <div class="form-group row mb-5">
-            <label class="col-sm-2 col-form-label"> Password:</label>
-            <div class="col-sm-6">
-                <input type="password" name="password" class="form-control" placeholder="Password"/>
-            </div>
-        </div>
-        <input type="hidden" name="_csrf" value="${_csrf.token}">
-        <button type="submit" class="btn btn-primary">Save</button>
-    </form>
+    <div>
+        <span><a class="btn btn-primary my-2" role="button" href="/main/profile/${currentUserId}/edit">Edit profile</a></span>
+    </div>
 </@c.page>

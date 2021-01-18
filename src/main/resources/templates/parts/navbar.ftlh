@@ -22,7 +22,7 @@
                 </#if>
                 <#if user??>
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/user/profile">Profile</a>
+                        <a class="nav-link" aria-current="page" href="/main/profile/${currentUserId}">Profile</a>
                     </li>
                 </#if>
             </ul>
