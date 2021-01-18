@@ -53,9 +53,9 @@ public class UserService implements UserDetailsService {
         userRepo.save(user);
     }
 
-    public void updateProfile(User user) {
-        if (!StringUtils.isEmpty(passwordEncoder.encode(user.getPassword()))){
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
+    public void updateProfile(User user, String password) {
+        if (!StringUtils.isEmpty(password)) {
+            user.setPassword(passwordEncoder.encode(password));
         }
 
         userRepo.save(user);

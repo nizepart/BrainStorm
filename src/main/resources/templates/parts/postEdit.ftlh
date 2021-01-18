@@ -1,5 +1,5 @@
 <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-    Post editor
+    Post
 </a>
 <div class="collapse mt-3" id="collapseExample">
     <div class="input-group">

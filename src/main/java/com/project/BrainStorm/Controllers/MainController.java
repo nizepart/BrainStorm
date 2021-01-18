@@ -59,6 +59,22 @@ public class MainController {
         return "main";
     }
 
+    @PostMapping("/main/profile/{user}")
+    public String addPostInProfile(
+            @AuthenticationPrincipal User user,
+            @RequestParam String title,
+            @RequestParam String full_text,
+            @RequestParam("file") MultipartFile file,
+            @RequestParam String tagName,
+            Map<String, Object> model) throws IOException {
+        Tag tag = new Tag(tagName);
+        Post post = new Post(title, full_text, LocalDateTime.now(), user, tagRepo.findByName(tagName));
+        fileSave(file, post);
+        tagRepo.save(tag);
+        postRepo.save(post);
+        return "redirect:/main/profile/{user}";
+    }
+
     @PostMapping("/main")
     public String add(
             @AuthenticationPrincipal User user,
@@ -69,6 +85,13 @@ public class MainController {
             Map<String, Object> model) throws IOException {
         Tag tag = new Tag(tagName);
         Post post = new Post(title, full_text, LocalDateTime.now(), user, tagRepo.findByName(tagName));
+        fileSave(file, post);
+        tagRepo.save(tag);
+        postRepo.save(post);
+        return "redirect:/main";
+    }
+
+    private void fileSave(MultipartFile file, Post post) throws IOException {
         if (file != null && !file.getOriginalFilename().isEmpty()){
 
             File uploadDir = new File(uploadPath);
@@ -84,9 +107,6 @@ public class MainController {
 
             post.setFilename(resultFilename);
         }
-        tagRepo.save(tag);
-        postRepo.save(post);
-        return "redirect:/main";
     }
 
     @GetMapping("/main/profile/{user}/edit")
@@ -117,7 +137,7 @@ public class MainController {
             @AuthenticationPrincipal User currentUser,
             @PathVariable User user,
             @RequestParam String password){
-        userService.updateProfile(user);
+        userService.updateProfile(user, password);
 
         return "redirect:/main/profile/{user}";
     }
