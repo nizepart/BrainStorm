@@ -8,6 +8,7 @@ import com.project.BrainStorm.Repos.TagRepo;
 import com.project.BrainStorm.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,12 +48,14 @@ public class MainController {
             @RequestParam(required = false, defaultValue = "") String filter,
             Model model) {
         Iterable<Post> blog = postRepo.findAll();
+        Iterable<Tag> tags = tagRepo.findAll();
         if(filter != null && !filter.isEmpty()) {
             blog = postRepo.findByTitle(filter);
         } else{
             blog = postRepo.findAll();
         }
         model.addAttribute("blog", blog);
+        model.addAttribute("tags", tags);
         model.addAttribute("filter", filter);
 
         return "main";
@@ -71,6 +74,23 @@ public class MainController {
         fileSave(file, post);
         postRepo.save(post);
         return "redirect:/main/profile/" + user.getId();
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @GetMapping("/main/tag")
+    public String updateTagList(
+    ){
+        return "tag";
+    }
+
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @PostMapping("/main/tag")
+    public String addTag(
+            @RequestParam String newTagName){
+        Tag tag = new Tag(newTagName);
+        tagRepo.save(tag);
+        return "redirect:/main";
     }
 
     @PostMapping("/main")
@@ -121,7 +141,9 @@ public class MainController {
                               @PathVariable User user){
         model.addAttribute("username", user.getUsername());
         Set<Post> blog = user.getBlog();
+        Iterable<Tag> tags = tagRepo.findAll();
 
+        model.addAttribute("tags", tags);
         model.addAttribute("blog", blog);
         model.addAttribute("userChannel", user);
         model.addAttribute("subscriptionsCount", user.getSubscriptions().size());

@@ -7,10 +7,16 @@
             <input type="text"  class="form-control mt-3" name="title" placeholder="Название статьи">
             <input type="text"  class="form-control mt-3" name="full_text" placeholder="Введите текст" required>
             <input class="form-control form-control-lg mt-3" id="formFileLg" type="file" name="file">
-            <input type="text"  class="form-control mt-3" name="tagName" placeholder="Выберите категорию" required>
+            <select class="form-select mt-3" name="tagName">
+                <option selected>Без категории</option>
+                <#list tags! as tag>
+                <option value="${tag.id}">${tag.name}</option>
+                </#list>
+            </select>
             <button type="submit" class="btn btn-primary mt-3 mb-3">Save post</button>
             <input type="hidden" name="_csrf" value="${_csrf.token}">
             <input type="hidden" name="id" value="<#if post??>${post.id}</#if>">
         </form>
     </div>
 </div>
+
