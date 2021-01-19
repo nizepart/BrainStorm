@@ -1,13 +1,13 @@
 <#import "parts/common.ftlh" as c>
 <#include "parts/security.ftlh">
 <@c.page>
-    <h5>${username}</h5>
+    <h3>${username}</h3>
     <#if !isCurrentUser>
             <a class="btn btn-info" href="/main/profile/${userChannel.id}/unsubscribe">Unsubscribe</a>
             <a class="btn btn-info" href="/main/profile/${userChannel.id}/subscribe">Subscribe</a>
     </#if>
     <div class="container my-3">
-        <div class="col">
+        <div class="col class mb-3">
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Subscriptions</h5>

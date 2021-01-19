@@ -28,11 +28,11 @@
                         <a class="nav-link" aria-current="page" href="/main/profile/${currentUserId}">Profile</a>
                     </li>
                 </#if>
-                <#if isAdmin>
+                <#if isModer>
                     <a class="nav-link" aria-current="page" href="/main/tag">Редактировать теги</a>
                 </#if>
             </ul>
-            <div class="navbar-text me-3"><#if user??>${name}<#else>Please, login</#if></div>
+            <div class="navbar-text me-3"><#if user??><h4>${name}</h4><#else>Please, login</#if></div>
             <#if user??><@l.logout/></#if>
         </div>
     </div>

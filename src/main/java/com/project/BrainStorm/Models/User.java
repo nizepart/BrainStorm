@@ -68,6 +68,8 @@ import java.util.Set;
             return roles.contains(Role.ADMIN);
         }
 
+        public boolean isModer() { return roles.contains(Role.MODER);}
+
         public void setBlog(Set<Post> blog) {
             this.blog = blog;
         }

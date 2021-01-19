@@ -77,7 +77,7 @@ public class MainController {
         return "redirect:/main/profile/" + user.getId();
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('MODER')")
     @GetMapping("/main/tag")
     public String updateTagList(Model model
     ){
@@ -87,7 +87,7 @@ public class MainController {
     }
 
 
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('MODER')")
     @PostMapping("/main/tag")
     public String addTag(
             @RequestParam String newTagName){
