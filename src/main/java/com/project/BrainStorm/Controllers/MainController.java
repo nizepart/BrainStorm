@@ -2,6 +2,7 @@ package com.project.BrainStorm.Controllers;
 
 import com.project.BrainStorm.Models.*;
 import com.project.BrainStorm.Repos.PostRepo;
+import com.project.BrainStorm.Repos.TagForUserRepo;
 import com.project.BrainStorm.Repos.TagRepo;
 import com.project.BrainStorm.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,9 @@ public class MainController {
 
     @Autowired
     private TagRepo tagRepo;
+
+    @Autowired
+    private TagForUserRepo tagForUserRepo;
 
     @Autowired
     private UserService userService;
@@ -92,8 +96,29 @@ public class MainController {
         if (tagFromDb != null) {
             return "redirect:/main/tag";
         }
+        if( tagForUserRepo.findByName(newTagName) != null){
+            tagForUserRepo.findByName(newTagName).setName("added - previous tag:  " + newTagName);
+        }
         Tag tag = new Tag(newTagName);
         tagRepo.save(tag);
+        return "redirect:/main";
+    }
+
+
+    @GetMapping("/main/newTag")
+    public String loadTagList(Model model
+    ){
+        Iterable<TagForUser> tags = tagForUserRepo.findAll();
+        model.addAttribute("tags", tags);
+        return "tagForUser";
+    }
+
+
+    @PostMapping("/main/newTag")
+    public String updateTagList(
+            @RequestParam String newTagName){
+        TagForUser tag = new TagForUser(newTagName);
+        tagForUserRepo.save(tag);
         return "redirect:/main";
     }
 

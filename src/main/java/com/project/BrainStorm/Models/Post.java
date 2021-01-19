@@ -95,6 +95,10 @@ public class Post {
         return tag != null ? tag.getName() : " ";
     }
 
+    public Integer getTagId() {
+        return tag != null ? tag.getId() : null;
+    }
+
     public Integer getId() {
         return id;
     }
