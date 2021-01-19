@@ -7,11 +7,13 @@
         name = user.getUsername()
         isAdmin = user.isAdmin()
         currentUserId = user.getId()
+        isModer = user.isModer()
     >
     <#else >
     <#assign
         name = "unknown"
         isAdmin = false
         currentUserId = -1
+        isModer = false
         >
 </#if>

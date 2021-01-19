@@ -15,9 +15,11 @@
                 <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="/category">Categories</a>
                 </li>
+                <#if user??>
                 <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="/main/newTag">Добавить новый тег</a>
                 </li>
+                </#if>
                 <#if isAdmin>
                 <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="/user">User list</a>
