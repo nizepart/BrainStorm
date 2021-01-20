@@ -1,5 +1,6 @@
 package com.project.BrainStorm.Controllers;
 
+import com.project.BrainStorm.Models.Post;
 import com.project.BrainStorm.Models.User;
 import com.project.BrainStorm.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,16 +9,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+
 
 
 @Controller
-@RequestMapping("/main/profile")
 public class SubscriptionController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("{user}/subscribe")
+    @GetMapping("/main/profile/{user}/subscribe")
     public String subscribe(
             @PathVariable User user,
             @AuthenticationPrincipal User currentUser
@@ -27,7 +27,7 @@ public class SubscriptionController {
         return "redirect:/main/profile/"+ user.getId() ;
     }
 
-    @GetMapping("{user}/unsubscribe")
+    @GetMapping("/main/profile/{user}/unsubscribe")
     public String unsubscribe(
             @PathVariable User user,
             @AuthenticationPrincipal User currentUser
@@ -37,7 +37,7 @@ public class SubscriptionController {
         return "redirect:/main/profile/" + user.getId();
     }
 
-    @GetMapping("{user}/subscriptions")
+    @GetMapping("/main/profile/{user}/subscriptions")
     public String usrList(
             Model model,
             @PathVariable User user,
@@ -49,7 +49,7 @@ public class SubscriptionController {
         return "subscriptions";
     }
 
-    @GetMapping("{user}/subscribers")
+    @GetMapping("/main/profile/{user}/subscribers")
     public String usrListSubs(
             Model model,
             @PathVariable User user,
@@ -60,4 +60,23 @@ public class SubscriptionController {
 
         return "subscribers";
     }
+
+    @GetMapping("/like/{post}")
+    public String like(
+            @PathVariable Post post,
+            @AuthenticationPrincipal User currentUser){
+        userService.like(currentUser, post);
+
+        return "redirect:/main";
+    }
+
+    @GetMapping("/unlike/{post}")
+    public String unlike(
+            @PathVariable Post post,
+            @AuthenticationPrincipal User currentUser){
+        userService.unlike(currentUser, post);
+
+        return "redirect:/main";
+    }
+
 }

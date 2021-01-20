@@ -1,7 +1,9 @@
 package com.project.BrainStorm.Service;
 
+import com.project.BrainStorm.Models.Post;
 import com.project.BrainStorm.Models.Role;
 import com.project.BrainStorm.Models.User;
+import com.project.BrainStorm.Repos.PostRepo;
 import com.project.BrainStorm.Repos.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,6 +24,9 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     private UserRepo userRepo;
+
+    @Autowired
+    private PostRepo postRepo;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -69,5 +74,15 @@ public class UserService implements UserDetailsService {
     public void unsubscribe(User currentUser, User user) {
         user.getSubscribers().remove(currentUser);
         userRepo.save(user);
+    }
+
+    public void like(User currentUser, Post post) {
+        post.getLikers().add(currentUser);
+        postRepo.save(post);
+    }
+
+    public void unlike(User currentUser, Post post) {
+        post.getLikers().remove(currentUser);
+        postRepo.save(post);
     }
 }

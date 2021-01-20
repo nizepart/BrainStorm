@@ -3,6 +3,7 @@ package com.project.BrainStorm.Models;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -22,8 +23,16 @@ public class Post {
 
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user.id")
     private User author;
+
+    @ManyToMany
+    @JoinTable(
+            name = "IsLiking",
+            joinColumns = {@JoinColumn(name = "post")},
+            inverseJoinColumns = {@JoinColumn(name = "liker")}
+    )
+    private Set<User> likers = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "IsOfTag")
@@ -43,6 +52,14 @@ public class Post {
 
     public void setTag(Tag tag) {
         this.tag = tag;
+    }
+
+    public Set<User> getLikers() {
+        return likers;
+    }
+
+    public void setLikers(Set<User> likers) {
+        this.likers = likers;
     }
 
     public String getCreationDate() {
@@ -90,6 +107,8 @@ public class Post {
     public String getAuthorName() {
         return author != null ? author.getUsername() : " ";
     }
+
+    public Integer getLikesCount() { return likers.size();}
 
     public String getTagName() {
         return tag != null ? tag.getName() : " ";

@@ -26,6 +26,16 @@ import java.util.Set;
             return id.equals(user.id);
         }
 
+
+        @ManyToMany
+        @JoinTable(
+                name = "IsLiking",
+                joinColumns = {@JoinColumn(name = "liker")},
+                inverseJoinColumns = {@JoinColumn(name = "post")}
+        )
+        private Set<Post> likedPosts = new HashSet<>();
+
+
         @ManyToMany
         @JoinTable(
                 name = "IsSubbing",
@@ -133,6 +143,14 @@ import java.util.Set;
 
         public String getFirst_name() {
             return first_name;
+        }
+
+        public Set<Post> getLikedPosts() {
+            return likedPosts;
+        }
+
+        public void setLikedPosts(Set<Post> likedPosts) {
+            this.likedPosts = likedPosts;
         }
 
         public void setFirst_name(String first_name) {

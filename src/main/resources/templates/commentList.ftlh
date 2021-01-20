@@ -10,9 +10,6 @@
                 <b>${comment.authorName}</b>
                 <i>${comment.full_text}</i>
                 <i>${comment.creationDate}</i>
-                <form action="/comments/${comment.id}/del" method="post">
-                    <button type="submit" class="btn btn-primary">Delete</button>
-                </form>
             </li>
         <#else>
             <div>Комментариев нет</div>

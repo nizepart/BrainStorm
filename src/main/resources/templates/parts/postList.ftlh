@@ -16,6 +16,13 @@
                     <div>
                         <span><a class="btn btn-primary my-3" role="button" href="/comments/${post.id}">Комментарии</a></span>
                     </div>
+                    <div>
+                        <span><a class="btn btn-primary my-3" role="button" href="/like/${post.id}">Like</a></span>
+                    </div>
+                    <div>
+                        <span><a class="btn btn-primary my-3" role="button" href="/unlike/${post.id}">Unike</a></span>
+                    </div>
+                    <p>${post.likesCount}</p>
                 </div>
                 <#if post.filename??>
                     <img src="/img/${post.filename}" class="card-img-bottom rounded">

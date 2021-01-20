@@ -97,7 +97,7 @@ public class MainController {
             return "redirect:/main/tag";
         }
         if( tagForUserRepo.findByName(newTagName) != null){
-            tagForUserRepo.findByName(newTagName).setName("added - previous tag:  " + newTagName);
+            tagForUserRepo.delete(tagForUserRepo.findByName(newTagName));
         }
         Tag tag = new Tag(newTagName);
         tagRepo.save(tag);
@@ -118,7 +118,8 @@ public class MainController {
     public String updateTagList(
             @RequestParam String newTagName){
         TagForUser tag = new TagForUser(newTagName);
-        tagForUserRepo.save(tag);
+        if (!newTagName.isBlank())
+            tagForUserRepo.save(tag);
         return "redirect:/main";
     }
 
