@@ -40,8 +40,10 @@ public class UserService implements UserDetailsService {
         return userRepo.findAll();
     }
 
-    public void saveUser(String username, User user, Map<String, String> form) {
+    public void saveUser(String username, String first_name, String last_name, User user, Map<String, String> form) {
         user.setUsername(username);
+        user.setFirst_name(first_name);
+        user.setLast_name(last_name);
 
         Set<String> roles = Arrays.stream(Role.values())
                 .map(Role::name)
@@ -58,10 +60,12 @@ public class UserService implements UserDetailsService {
         userRepo.save(user);
     }
 
-    public void updateProfile(User user, String password) {
-        if (!StringUtils.isEmpty(password)) {
+    public void updateProfile(User user, String password, String first_name, String last_name) {
+        if (!StringUtils.isEmpty(password) && !StringUtils.isEmpty(first_name) && !StringUtils.isEmpty(last_name)) {
             user.setPassword(passwordEncoder.encode(password));
-        }
+            user.setFirst_name(first_name);
+            user.setLast_name(last_name);}
+        
 
         userRepo.save(user);
     }

@@ -4,23 +4,26 @@
         List of tags
     </h5>
     <ul class="list-group">
-    <#list tags as tag>
-        <li class="list-group-item list-group-item-secondary mb-3">
-            <b>${tag.name}</b>
-        </li>
-    <#else>
-        <div>Тегов нет</div>
-    </#list>
+        <#list tags as tag>
+            <li class="list-group-item list-group-item-secondary mb-3">
+                <b>${tag.name}</b>
+            </li>
+        <#else>
+            <div>Тегов нет</div>
+        </#list>
     </ul>
     <div>
         <form method="post" class="mt-3">
-            <div class="form-group row mb-2">
-                <div class="col-sm-6">
-                    <input type="text" class="form-control" name="newTagName" placeholder="Введите новый тег">
-                </div>
+            <#list utags as utag>
+            <div class="form-check">
+                <input class="form-check-label" type="checkbox" name="newTagName" value="${utag.name}">
+                <label class="form-check-label">${utag.name}</label>
             </div>
-            <button type="submit" class="btn btn-primary">Отправить</button>
+            <#else>
+                <div>Тегов для одобрения нет</div>
+            </#list>
             <input type="hidden" name="_csrf" value="${_csrf.token}">
+            <button type="submit" class="btn btn-primary">Одобрить</button>
         </form>
     </div>
 </@c.page>

@@ -83,6 +83,8 @@ public class MainController {
     ){
         Iterable<Tag> tags = tagRepo.findAll();
         model.addAttribute("tags", tags);
+        Iterable<TagForUser> utags = tagForUserRepo.findAll();
+        model.addAttribute("utags", utags);
         return "tag";
     }
 
@@ -108,8 +110,6 @@ public class MainController {
     @GetMapping("/main/newTag")
     public String loadTagList(Model model
     ){
-        Iterable<TagForUser> tags = tagForUserRepo.findAll();
-        model.addAttribute("tags", tags);
         return "tagForUser";
     }
 
@@ -179,7 +179,7 @@ public class MainController {
         model.addAttribute("subscriptionsCount", user.getSubscriptions().size());
         model.addAttribute("subscribersCount", user.getSubscribers().size());
         model.addAttribute("isCurrentUser", currentUser.equals(user));
-        model.addAttribute("IsSubscriber", user.getSubscribers().contains(currentUser));
+        model.addAttribute("isSubscriber", user.getSubscribers().contains(currentUser));
 
         return "profile";
     }
@@ -189,8 +189,11 @@ public class MainController {
     public String updateProfile(
             @AuthenticationPrincipal User currentUser,
             @PathVariable User user,
-            @RequestParam String password){
-        userService.updateProfile(user, password);
+            @RequestParam String password,
+            @RequestParam String first_name,
+            @RequestParam String last_name){
+        userService.updateProfile(user, password, first_name, last_name);
+
 
         return "redirect:/main/profile/" + user.getId();
     }

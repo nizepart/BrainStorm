@@ -6,6 +6,20 @@
                 <input type="text" name="username" class="form-control" required placeholder="Username"/>
             </div>
         </div>
+        <#if isRegisterForm>
+            <div class="form-group row mb-2">
+                <label class="col-sm-2 col-form-label"> First name: </label>
+                <div class="col-sm-6">
+                    <input type="text" name="first_name" class="form-control" required placeholder="First Name"/>
+                </div>
+            </div>
+            <div class="form-group row mb-2">
+                <label class="col-sm-2 col-form-label"> Last name: </label>
+                <div class="col-sm-6">
+                    <input type="text" name="last_name" class="form-control" required placeholder="Last Name"/>
+                </div>
+            </div>
+        </#if>
         <div class="form-group row mb-5">
             <label class="col-sm-2 col-form-label"> Password:</label>
             <div class="col-sm-6">

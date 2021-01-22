@@ -3,10 +3,10 @@
 <@c.page>
     <h3>${username}</h3>
     <#if !isCurrentUser>
-        <#if isSubscriber>
-            <a class="btn btn-info" href="/main/profile/${userChannel.id}/unsubscribe">Unsubscribe</a>
-        <#else>
+        <#if !isSubscriber>
             <a class="btn btn-info" href="/main/profile/${userChannel.id}/subscribe">Subscribe</a>
+        <#else>
+            <a class="btn btn-info" href="/main/profile/${userChannel.id}/unsubscribe">Unsubscribe</a>
         </#if>
     </#if>
     <div class="container my-3">
