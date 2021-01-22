@@ -13,17 +13,14 @@
         </#list>
     </ul>
     <div>
+        <#list utags as utag>
         <form method="post" class="mt-3">
-            <#list utags as utag>
-            <div class="form-check">
-                <input class="form-check-label" type="checkbox" name="newTagName" value="${utag.name}">
-                <label class="form-check-label">${utag.name}</label>
-            </div>
-            <#else>
-                <div>Тегов для одобрения нет</div>
-            </#list>
+            <input type="text"  class="form-control mt-3" name="newTagName" value="${utag.name}">
             <input type="hidden" name="_csrf" value="${_csrf.token}">
             <button type="submit" class="btn btn-primary">Одобрить</button>
         </form>
+        <#else>
+            <div>Тегов для одобрения нет</div>
+        </#list>
     </div>
 </@c.page>

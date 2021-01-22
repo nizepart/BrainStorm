@@ -103,7 +103,7 @@ public class MainController {
         }
         Tag tag = new Tag(newTagName);
         tagRepo.save(tag);
-        return "redirect:/main";
+        return "redirect:/main/tag";
     }
 
 

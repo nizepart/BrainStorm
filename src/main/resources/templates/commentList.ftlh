@@ -7,7 +7,7 @@
     <ul class="list-group">
         <#list comments as comment>
             <li class="list-group-item list-group-item-secondary mb-3">
-                <b>${comment.authorName}</b>
+                <b><a href="/main/profile/${post.author.id}">${comment.authorName}</a></b>
                 <i>${comment.full_text}</i>
                 <i>${comment.creationDate}</i>
             </li>
